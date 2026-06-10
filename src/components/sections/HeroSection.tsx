@@ -42,21 +42,21 @@ export default function HeroSection() {
           className="object-cover object-center"
           priority
         />
-        {/* Overlay — light touch: top scrim for nav, left scrim for text, gentle bottom anchor. Right side (the building) stays clear. */}
+        {/* Overlay — top scrim (nav) + stronger left scrim (text) + bottom-left pool. Right side (the building) stays clear. */}
         <div
           className="absolute inset-0 z-[1]"
           style={{
             background: [
               "linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.0) 18%)",
-              "linear-gradient(to right, rgba(13,13,13,0.78) 0%, rgba(13,13,13,0.4) 38%, rgba(13,13,13,0.0) 70%)",
-              "linear-gradient(to bottom, rgba(13,13,13,0.0) 55%, rgba(13,13,13,0.55) 100%)",
+              "linear-gradient(to right, rgba(13,13,13,0.92) 0%, rgba(13,13,13,0.6) 34%, rgba(13,13,13,0.0) 60%)",
+              "radial-gradient(ellipse 75% 65% at 16% 92%, rgba(13,13,13,0.62) 0%, rgba(13,13,13,0.0) 70%)",
             ].join(", "),
           }}
         />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-10 lg:px-16 pt-28 pb-20">
+      <div className="relative z-10 max-w-[102rem] mx-auto w-full px-6 md:px-10 lg:px-16 pt-28 pb-20">
         <div className="max-w-3xl">
           {/* Headline */}
           <h1
