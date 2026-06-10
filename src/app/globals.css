@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette */
+  --color-canvas:       #0D0D0D;
+  --color-surface:      #141414;
+  --color-elevated:     #1C1C1C;
+  --color-edge:         #2A2A2A;
+  --color-ink:          #F2F0ED;
+  --color-ink-dim:      #8A8680;
+  --color-ink-faint:    #4A4846;
+  --color-gold:         #C8A96E;
+  --color-gold-light:   #D4B97E;
+
+  /* Typography */
+  --font-display: var(--font-cormorant), "Times New Roman", serif;
+  --font-sans:    var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  /* Spacing overrides */
+  --spacing-section: 6rem;
+  --spacing-section-md: 4rem;
+  --spacing-section-sm: 3rem;
+}
+
+/* ── Global resets ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background-color: #0D0D0D;
+}
+
+body {
+  background-color: #0D0D0D;
+  color: #F2F0ED;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: rgba(200, 169, 110, 0.22);
+  color: #F2F0ED;
+}
+
+/* ── Display font helper ── */
+.font-display {
+  font-family: var(--font-cormorant), "Times New Roman", serif;
+}
+
+/* ── Img placeholder gradient (used until real CGI images are in place) ── */
+.img-placeholder {
+  background:
+    radial-gradient(ellipse 100% 70% at 50% 0%, rgba(200, 169, 110, 0.07) 0%, transparent 55%),
+    linear-gradient(160deg, #1a1a17 0%, #0e0e0c 100%);
+}
+
+/* ── Thin scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0D0D0D; }
+::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+
+/* ── Reusable hover utilities (safe in server components) ── */
+.link-dim {
+  color: #8A8680;
+  transition: color 0.2s ease;
+}
+.link-dim:hover { color: #F2F0ED; }
+
+.link-faint {
+  color: #4A4846;
+  transition: color 0.2s ease;
+}
+.link-faint:hover { color: #8A8680; }
+
+.btn-gold {
+  border: 1px solid #C8A96E;
+  color: #C8A96E;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.btn-gold:hover {
+  background-color: #C8A96E;
+  color: #0D0D0D;
+}
+
+.card-hover {
+  border: 1px solid #2A2A2A;
+  transition: border-color 0.2s ease;
+}
+.card-hover:hover { border-color: #C8A96E; }
