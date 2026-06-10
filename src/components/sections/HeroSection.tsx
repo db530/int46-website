@@ -35,7 +35,7 @@ export default function HeroSection() {
       {/* Background */}
       <div className="absolute inset-0" aria-hidden="true">
         <Image
-          src="/images/home/contemporary-villa-with-expansive-garden-water-feature.jpg"
+          src="/images/home/Home.jpg"
           alt="INT.46 VizLab — contemporary residential development"
           fill
           sizes="100vw"
