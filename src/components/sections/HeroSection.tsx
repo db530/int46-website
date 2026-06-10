@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 
 export default function HeroSection() {
@@ -85,20 +86,20 @@ export default function HeroSection() {
             and drive pre-sales.
           </p>
 
-          {/* CTA */}
+          {/* CTA — exploration-led; the header owns "Start a Conversation" */}
           <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#contact"
+              href="#work"
               className="inline-flex items-center justify-center px-8 py-3.5 text-sm btn-gold-solid font-medium"
             >
-              Start a Conversation
+              View Selected Work
             </a>
-            <a
-              href="#work"
-              className="inline-flex items-center justify-center px-7 py-3.5 text-sm link-dim"
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center justify-center px-7 py-3.5 text-sm btn-gold"
             >
-              View Selected Work ↓
-            </a>
+              Request the Portfolio
+            </Link>
           </div>
         </div>
       </div>
