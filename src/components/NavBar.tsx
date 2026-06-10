@@ -39,7 +39,11 @@ export default function NavBar() {
           <Link
             href="/"
             className="font-display text-lg tracking-wider font-medium"
-            style={{ color: "#F2F0ED", letterSpacing: "0.08em" }}
+            style={{
+              color: "#F2F0ED",
+              letterSpacing: "0.08em",
+              textShadow: "0 1px 10px rgba(0,0,0,0.45)",
+            }}
           >
             INT.46 VizLab
           </Link>
@@ -47,36 +51,17 @@ export default function NavBar() {
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="text-sm transition-colors duration-200"
-                style={{ color: "#8A8680" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#F2F0ED")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#8A8680")}
-              >
+              <a key={l.label} href={l.href} className="text-sm nav-link">
                 {l.label}
               </a>
             ))}
           </div>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA — solid gold, always visible */}
           <div className="hidden md:flex items-center gap-4">
             <a
               href="/#contact"
-              className="text-sm px-5 py-2.5 border transition-all duration-200"
-              style={{
-                borderColor: "#C8A96E",
-                color: "#C8A96E",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "#C8A96E";
-                (e.currentTarget as HTMLElement).style.color = "#0D0D0D";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                (e.currentTarget as HTMLElement).style.color = "#C8A96E";
-              }}
+              className="text-sm px-5 py-2.5 btn-gold-solid font-medium"
             >
               Start a Conversation
             </a>

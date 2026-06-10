@@ -35,17 +35,18 @@ export default function HeroSection() {
       <div className="absolute inset-0" aria-hidden="true">
         <Image
           src="/images/home/contemporary-villa-with-expansive-garden-water-feature.jpg"
-          alt="INT.46 VizLab — contemporary villa CGI"
+          alt="INT.46 VizLab — contemporary residential development"
           fill
           sizes="100vw"
           className="object-cover object-center"
           priority
         />
-        {/* Overlay — left darkening (text area) + bottom darkening */}
+        {/* Overlay — top scrim (nav) + left darkening (text) + bottom darkening */}
         <div
           className="absolute inset-0 z-[1]"
           style={{
             background: [
+              "linear-gradient(to bottom, rgba(13,13,13,0.55) 0%, rgba(13,13,13,0.0) 22%)",
               "linear-gradient(to right, rgba(13,13,13,0.82) 0%, rgba(13,13,13,0.55) 45%, rgba(13,13,13,0.15) 100%)",
               "linear-gradient(to bottom, rgba(13,13,13,0.2) 0%, rgba(13,13,13,0.45) 60%, rgba(13,13,13,0.92) 100%)",
             ].join(", "),
@@ -77,39 +78,24 @@ export default function HeroSection() {
           {/* Subline */}
           <p
             ref={sublineRef}
-            className="text-base md:text-lg font-light leading-relaxed mb-10 max-w-lg"
-            style={{ color: "#8A8680" }}
+            className="text-base md:text-lg font-light leading-relaxed mb-10 max-w-xl"
+            style={{ color: "#D8D4CB", textWrap: "balance" }}
           >
-            Sales-driven CGI for European real estate developers.
-            Pre-sales, investor presentations, planning approvals.
+            We help European developers secure investment, win approvals,
+            and drive pre-sales.
           </p>
 
           {/* CTA */}
           <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
             <a
               href="#contact"
-              className="inline-flex items-center justify-center px-7 py-3.5 text-sm border transition-all duration-250 group"
-              style={{
-                borderColor: "#C8A96E",
-                color: "#C8A96E",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "#C8A96E";
-                (e.currentTarget as HTMLElement).style.color = "#0D0D0D";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                (e.currentTarget as HTMLElement).style.color = "#C8A96E";
-              }}
+              className="inline-flex items-center justify-center px-8 py-3.5 text-sm btn-gold-solid font-medium"
             >
               Start a Conversation
             </a>
             <a
               href="#work"
-              className="inline-flex items-center justify-center px-7 py-3.5 text-sm transition-colors duration-200"
-              style={{ color: "#8A8680" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#F2F0ED")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#8A8680")}
+              className="inline-flex items-center justify-center px-7 py-3.5 text-sm link-dim"
             >
               View Selected Work ↓
             </a>
