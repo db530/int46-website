@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { metrics, clientLogos, primaryTestimonial } from "@/data/siteData";
+import { metrics, primaryTestimonial } from "@/data/siteData";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,14 +44,13 @@ export default function TrustSection() {
         }
       });
 
-      // Fade in logos
-      gsap.from(".logo-item", {
+      // Fade in logo strip
+      gsap.from(".logo-strip", {
         opacity: 0,
         y: 12,
-        stagger: 0.1,
-        duration: 0.6,
+        duration: 0.7,
         ease: "power2.out",
-        scrollTrigger: { trigger: ".logo-item", start: "top 85%", once: true },
+        scrollTrigger: { trigger: ".logo-strip", start: "top 88%", once: true },
       });
 
       // Fade in testimonial
@@ -68,36 +67,36 @@ export default function TrustSection() {
   }, []);
 
   return (
-    <section
-      id="trust"
-      ref={sectionRef}
-      className="py-24 md:py-32 px-6 md:px-10 lg:px-16"
-      style={{ backgroundColor: "#0D0D0D" }}
-    >
-      <div className="max-w-7xl mx-auto">
-        {/* Label */}
-        <p className="text-xs tracking-[0.2em] uppercase mb-14" style={{ color: "#4A4846" }}>
-          Trusted by
-        </p>
-
-        {/* Client logos */}
-        <div className="flex flex-wrap gap-x-12 gap-y-6 mb-20">
-          {clientLogos.map((logo) => (
-            <div
-              key={logo.name}
-              className="logo-item text-sm font-medium tracking-widest uppercase"
-              style={{ color: "#4A4846" }}
-            >
-              {logo.name}
-            </div>
-          ))}
+    <section id="trust" ref={sectionRef} style={{ backgroundColor: "#0D0D0D" }}>
+      {/* ── Taupe client-logo band (full bleed) ── */}
+      <div
+        className="px-6 md:px-10 lg:px-16 py-12 md:py-16"
+        style={{ backgroundColor: "#C9C1B3" }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <p
+            className="text-xs tracking-[0.22em] uppercase mb-8 text-center"
+            style={{ color: "#6B6358" }}
+          >
+            Trusted by
+          </p>
+          <Image
+            src="/images/clients/client-logos.png"
+            alt="Solida Capital · XIOR Student Housing · SKANSKA · I Asset Management · SHED Co-living"
+            width={2903}
+            height={236}
+            sizes="(max-width: 768px) 100vw, 1100px"
+            className="logo-strip w-full h-auto"
+            priority
+          />
         </div>
+      </div>
 
-        {/* Divider */}
-        <div className="h-px mb-20" style={{ backgroundColor: "#2A2A2A" }} />
-
+      {/* ── Dark content ── */}
+      <div className="py-24 md:py-32 px-6 md:px-10 lg:px-16">
+      <div className="max-w-7xl mx-auto">
         {/* Metrics */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-10">
           {metrics.map((m) => (
             <div key={m.label}>
               <p
@@ -117,6 +116,15 @@ export default function TrustSection() {
             </div>
           ))}
         </div>
+
+        {/* Scale line — legally cautious, associative framing */}
+        <p
+          className="text-base md:text-lg font-light leading-relaxed max-w-3xl mb-20"
+          style={{ color: "#8A8680" }}
+        >
+          Visual strategy supporting developments that represent
+          <span style={{ color: "#C8A96E" }}> tens of millions of euros</span> in asset value.
+        </p>
 
         {/* Divider */}
         <div className="h-px mb-20" style={{ backgroundColor: "#2A2A2A" }} />
@@ -166,6 +174,7 @@ export default function TrustSection() {
           </div>
 
         </div>
+      </div>
       </div>
     </section>
   );
