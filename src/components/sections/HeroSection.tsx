@@ -42,14 +42,14 @@ export default function HeroSection() {
           className="object-cover object-center"
           priority
         />
-        {/* Overlay — top scrim (nav) + left darkening (text) + bottom darkening */}
+        {/* Overlay — light touch: top scrim for nav, left scrim for text, gentle bottom anchor. Right side (the building) stays clear. */}
         <div
           className="absolute inset-0 z-[1]"
           style={{
             background: [
-              "linear-gradient(to bottom, rgba(13,13,13,0.55) 0%, rgba(13,13,13,0.0) 22%)",
-              "linear-gradient(to right, rgba(13,13,13,0.82) 0%, rgba(13,13,13,0.55) 45%, rgba(13,13,13,0.15) 100%)",
-              "linear-gradient(to bottom, rgba(13,13,13,0.2) 0%, rgba(13,13,13,0.45) 60%, rgba(13,13,13,0.92) 100%)",
+              "linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.0) 18%)",
+              "linear-gradient(to right, rgba(13,13,13,0.78) 0%, rgba(13,13,13,0.4) 38%, rgba(13,13,13,0.0) 70%)",
+              "linear-gradient(to bottom, rgba(13,13,13,0.0) 55%, rgba(13,13,13,0.55) 100%)",
             ].join(", "),
           }}
         />
