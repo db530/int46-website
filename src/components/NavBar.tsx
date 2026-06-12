@@ -34,7 +34,7 @@ export default function NavBar() {
           backdropFilter: scrolled ? "blur(12px)" : "none",
         }}
       >
-        <nav className="mx-auto flex items-center justify-between px-6 md:px-10 lg:px-16 h-16 max-w-7xl">
+        <nav className="mx-auto flex items-center justify-between px-6 md:px-10 lg:px-16 h-16 max-w-[102rem]">
           {/* Logo */}
           <Link
             href="/"

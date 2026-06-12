@@ -75,8 +75,8 @@ export default function TrustSection() {
       >
         <div className="max-w-6xl mx-auto">
           <p
-            className="text-xs tracking-[0.22em] uppercase mb-8 text-center"
-            style={{ color: "#6B6358" }}
+            className="text-sm tracking-[0.28em] uppercase mb-9 text-center font-medium"
+            style={{ color: "#4A443B" }}
           >
             Trusted by
           </p>
@@ -87,6 +87,7 @@ export default function TrustSection() {
             height={236}
             sizes="(max-width: 768px) 100vw, 1100px"
             className="logo-strip w-full h-auto"
+            style={{ filter: "grayscale(1)", opacity: 0.88 }}
             priority
           />
         </div>
@@ -95,10 +96,18 @@ export default function TrustSection() {
       {/* ── Dark content ── */}
       <div className="py-24 md:py-32 px-6 md:px-10 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        {/* Metrics */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-10">
+        {/* Centered eyebrow */}
+        <p
+          className="text-sm tracking-[0.28em] uppercase text-center mb-14"
+          style={{ color: "#8A8680" }}
+        >
+          Proven in market
+        </p>
+
+        {/* Metrics — centered */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
           {metrics.map((m) => (
-            <div key={m.label}>
+            <div key={m.label} className="text-center">
               <p
                 className="metric-value font-display font-light mb-2"
                 data-target={m.value}
@@ -117,10 +126,10 @@ export default function TrustSection() {
           ))}
         </div>
 
-        {/* Scale line — legally cautious, associative framing */}
+        {/* Scale line — legally cautious, associative framing; centered, single line, elevated */}
         <p
-          className="text-base md:text-lg font-light leading-relaxed max-w-3xl mb-20"
-          style={{ color: "#8A8680" }}
+          className="font-display font-light leading-relaxed text-center whitespace-normal md:whitespace-nowrap mb-20"
+          style={{ fontSize: "clamp(1.1rem, 1.9vw, 1.5rem)", color: "#B8B3AB" }}
         >
           Visual strategy supporting developments that represent
           <span style={{ color: "#C8A96E" }}> tens of millions of euros</span> in asset value.
