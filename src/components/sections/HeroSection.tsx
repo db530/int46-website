@@ -4,10 +4,13 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const sublineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
@@ -16,11 +19,21 @@ export default function HeroSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
+      // Staged entrance — headline lines cascade, then subline, then CTAs
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.from(".hero-line", { yPercent: 45, opacity: 0, duration: 0.95, stagger: 0.12 }, 0.25)
+        .from(sublineRef.current, { opacity: 0, y: 20, duration: 0.8 }, "-=0.35")
+        .from(ctaRef.current, { opacity: 0, y: 16, duration: 0.7 }, "-=0.45");
 
-      tl.from(headlineRef.current, { opacity: 0, y: 28, duration: 1.0 }, 0.3)
-        .from(sublineRef.current, { opacity: 0, y: 20, duration: 0.8 }, 0.55)
-        .from(ctaRef.current, { opacity: 0, y: 16, duration: 0.7 }, 0.75);
+      // Scroll-driven cinematic: slow image push-in + content parallax + scroll-cue fade
+      const scrub = { trigger: containerRef.current, start: "top top", end: "bottom top", scrub: true };
+      gsap.to(".hero-img", { scale: 1.09, ease: "none", scrollTrigger: scrub });
+      gsap.to(contentRef.current, { yPercent: -10, ease: "none", scrollTrigger: scrub });
+      gsap.to(".hero-scroll", {
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: { trigger: containerRef.current, start: "top top", end: "12% top", scrub: true },
+      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -39,7 +52,7 @@ export default function HeroSection() {
           alt="INT.46 VizLab — contemporary residential development"
           fill
           sizes="100vw"
-          className="object-cover object-center"
+          className="hero-img object-cover object-center"
           priority
         />
         {/* Overlay — top scrim (nav) + stronger left scrim (text) + bottom-left pool. Right side (the building) stays clear. */}
@@ -56,11 +69,13 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-[102rem] mx-auto w-full px-6 md:px-10 lg:px-16 pt-28 pb-20">
+      <div
+        ref={contentRef}
+        className="relative z-10 max-w-[102rem] mx-auto w-full px-6 md:px-10 lg:px-16 pt-28 pb-20"
+      >
         <div className="max-w-3xl">
-          {/* Headline */}
+          {/* Headline — staged line reveal */}
           <h1
-            ref={headlineRef}
             className="font-display font-light leading-[1.05] mb-6"
             style={{
               fontSize: "clamp(2.6rem, 6vw, 5rem)",
@@ -69,11 +84,11 @@ export default function HeroSection() {
               textShadow: "0 2px 24px rgba(0,0,0,0.6)",
             }}
           >
-            Visual Strategy
-            <br />
-            <em style={{ fontStyle: "italic", color: "#D4B97E" }}>That Sells</em>
-            <br />
-            Real Estate.
+            <span className="hero-line block">Visual Strategy</span>
+            <span className="hero-line block">
+              <em style={{ fontStyle: "italic", color: "#D4B97E" }}>That Sells</em>
+            </span>
+            <span className="hero-line block">Real Estate.</span>
           </h1>
 
           {/* Subline */}
@@ -105,7 +120,7 @@ export default function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 right-8 md:right-16 flex flex-col items-center gap-2 opacity-40">
+      <div className="hero-scroll absolute bottom-8 right-8 md:right-16 flex flex-col items-center gap-2 opacity-40">
         <span className="text-xs tracking-widest uppercase" style={{ color: "#8A8680", writingMode: "vertical-rl" }}>
           Scroll
         </span>
