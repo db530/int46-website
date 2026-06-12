@@ -25,14 +25,22 @@ export default function HeroSection() {
         .from(sublineRef.current, { opacity: 0, y: 20, duration: 0.8 }, "-=0.35")
         .from(ctaRef.current, { opacity: 0, y: 16, duration: 0.7 }, "-=0.45");
 
-      // Scroll-driven cinematic: slow image push-in + content parallax + scroll-cue fade
-      const scrub = { trigger: containerRef.current, start: "top top", end: "bottom top", scrub: true };
-      gsap.to(".hero-img", { scale: 1.09, ease: "none", scrollTrigger: scrub });
-      gsap.to(contentRef.current, { yPercent: -10, ease: "none", scrollTrigger: scrub });
-      gsap.to(".hero-scroll", {
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: { trigger: containerRef.current, start: "top top", end: "12% top", scrub: true },
+      // NOTE: the autonomous "alive from the first second" push-in is a CSS
+      // keyframe animation (.hero-img-breathe) — compositor-driven, off the main
+      // thread, and independent of GSAP's ticker. See globals.css.
+
+      // Scroll-driven layer — desktop only (avoids scrub jank on mobile).
+      // Lives on the wrapper so it composes with the breathing transform above.
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 768px)", () => {
+        const scrub = { trigger: containerRef.current, start: "top top", end: "bottom top", scrub: true };
+        gsap.to(".hero-bg", { scale: 1.09, ease: "none", scrollTrigger: scrub });
+        gsap.to(contentRef.current, { yPercent: -10, ease: "none", scrollTrigger: scrub });
+        gsap.to(".hero-scroll", {
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: { trigger: containerRef.current, start: "top top", end: "12% top", scrub: true },
+        });
       });
     }, containerRef);
 
@@ -47,14 +55,16 @@ export default function HeroSection() {
     >
       {/* Background */}
       <div className="absolute inset-0" aria-hidden="true">
-        <Image
-          src="/images/home/Home.jpg"
-          alt="INT.46 VizLab — contemporary residential development"
-          fill
-          sizes="100vw"
-          className="hero-img object-cover object-center"
-          priority
-        />
+        <div className="hero-bg absolute inset-0">
+          <Image
+            src="/images/home/Home.jpg"
+            alt="INT.46 VizLab — contemporary residential development"
+            fill
+            sizes="100vw"
+            className="hero-img hero-img-breathe object-cover object-center"
+            priority
+          />
+        </div>
         {/* Overlay — top scrim (nav) + stronger left scrim (text) + bottom-left pool. Right side (the building) stays clear. */}
         <div
           className="absolute inset-0 z-[1]"

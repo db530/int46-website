@@ -107,3 +107,19 @@ body {
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
 }
 .nav-link:hover { color: #FFFFFF; }
+
+/* ── Hero ambient push-in — "alive from the first second" ──
+   Compositor-driven, off the main thread; very slow so it reads as a living
+   still, not an effect. Drifts gently toward the architecture. */
+@keyframes hero-breathe {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+.hero-img-breathe {
+  transform-origin: 65% 50%;
+  animation: hero-breathe 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-img-breathe { animation: none; }
+}
