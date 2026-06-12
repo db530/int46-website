@@ -108,16 +108,17 @@ body {
 }
 .nav-link:hover { color: #FFFFFF; }
 
-/* ── Hero ambient push-in — "alive from the first second" ──
-   Compositor-driven, off the main thread; very slow so it reads as a living
-   still, not an effect. Drifts gently toward the architecture. */
+/* ── Hero ambient camera — "alive from the first second" ──
+   Compositor-driven, off the main thread. A slow dolly: zoom + diagonal pan so
+   it clearly reads as camera movement, yet stays elegant. Negative delay starts
+   it mid-motion so it's already moving on load. */
 @keyframes hero-breathe {
-  from { transform: scale(1); }
-  to   { transform: scale(1.06); }
+  from { transform: scale(1.06) translate3d(1.4%, 0.7%, 0); }
+  to   { transform: scale(1.15) translate3d(-1.4%, -0.7%, 0); }
 }
 .hero-img-breathe {
-  transform-origin: 65% 50%;
-  animation: hero-breathe 16s ease-in-out infinite alternate;
+  transform-origin: center;
+  animation: hero-breathe 20s ease-in-out -4s infinite alternate;
   will-change: transform;
 }
 @media (prefers-reduced-motion: reduce) {
