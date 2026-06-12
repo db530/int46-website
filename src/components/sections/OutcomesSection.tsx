@@ -16,6 +16,34 @@ export default function OutcomesSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
+      // Left column — staged reveal
+      gsap.from(".outcomes-left > *", {
+        opacity: 0,
+        y: 24,
+        stagger: 0.12,
+        duration: 0.75,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".outcomes-left", start: "top 80%", once: true },
+      });
+
+      // Image — subtle parallax (pre-scaled so edges never show)
+      gsap.fromTo(
+        ".outcomes-img",
+        { yPercent: -6, scale: 1.12 },
+        {
+          yPercent: 6,
+          scale: 1.12,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".outcomes-img-wrap",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+
+      // Outcome categories — stagger
       gsap.from(".outcome-card", {
         opacity: 0,
         y: 24,
@@ -41,7 +69,7 @@ export default function OutcomesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start mb-20">
 
           {/* Left — header + testimonial */}
-          <div>
+          <div className="outcomes-left">
             <p className="text-xs tracking-[0.2em] uppercase mb-3" style={{ color: "#9A958C" }}>
               Built Outcomes
             </p>
@@ -78,13 +106,13 @@ export default function OutcomesSection() {
           </div>
 
           {/* Right — image */}
-          <div className="relative w-full overflow-hidden" style={{ aspectRatio: "3/4" }}>
+          <div className="outcomes-img-wrap relative w-full overflow-hidden" style={{ aspectRatio: "3/4" }}>
             <Image
               src="/images/home/image0.jpeg"
               alt="INT.46 VizLab — premium CGI render"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover object-[30%]"
+              className="outcomes-img object-cover object-[30%]"
               unoptimized
             />
           </div>

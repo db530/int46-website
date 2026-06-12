@@ -80,7 +80,7 @@ export default function WorkSection() {
                   alt={projects[0].title}
                   fill
                   sizes="(max-width: 768px) 100vw, 60vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.06]"
                 />
               ) : (
                 <div
@@ -129,7 +129,7 @@ export default function WorkSection() {
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
-              className="project-card group relative overflow-hidden block"
+              className="project-card group relative overflow-hidden block transition-transform duration-300 ease-out hover:-translate-y-1"
               style={{ backgroundColor: "#1C1C1C" }}
             >
               <div
@@ -142,17 +142,29 @@ export default function WorkSection() {
                     alt={project.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.07]"
                   />
                 ) : (
                   <div
-                    className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="absolute inset-0 transition-transform duration-[800ms] ease-out group-hover:scale-[1.07]"
                     style={{
                       background:
                         "radial-gradient(ellipse 80% 80% at 40% 60%, rgba(200,169,110,0.09) 0%, transparent 60%), linear-gradient(160deg,#1e1e1a 0%,#0e0e0c 100%)",
                     }}
                   />
                 )}
+                {/* Hover veil + view cue */}
+                <div
+                  className="absolute inset-0 flex items-end justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: "linear-gradient(to top, rgba(13,13,13,0.6) 0%, transparent 45%)" }}
+                >
+                  <span
+                    className="text-xs tracking-widest uppercase translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
+                    style={{ color: "#C8A96E" }}
+                  >
+                    View →
+                  </span>
+                </div>
               </div>
 
               <div className="p-6">

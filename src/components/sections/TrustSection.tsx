@@ -16,7 +16,26 @@ export default function TrustSection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Animate metric numbers counting up
+      // #2 Chapter cut — the taupe band content rises deliberately into view
+      gsap.from(".trust-band-el", {
+        opacity: 0,
+        y: 26,
+        duration: 0.9,
+        stagger: 0.14,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".trust-band", start: "top 90%", once: true },
+      });
+
+      // #6 Metric blocks reveal + count-up
+      gsap.from(".metric-item", {
+        opacity: 0,
+        y: 22,
+        duration: 0.7,
+        stagger: 0.14,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".metric-item", start: "top 85%", once: true },
+      });
+
       const metricEls = sectionRef.current?.querySelectorAll(".metric-value");
       metricEls?.forEach((el) => {
         const target = el.getAttribute("data-target") || "";
@@ -25,15 +44,12 @@ export default function TrustSection() {
 
         if (!isNaN(numericPart)) {
           const obj = { val: 0 };
+          el.textContent = "0" + suffix;
           gsap.to(obj, {
             val: numericPart,
-            duration: 1.4,
+            duration: 1.6,
             ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              once: true,
-            },
+            scrollTrigger: { trigger: el, start: "top 85%", once: true },
             onUpdate: () => {
               el.textContent =
                 (Number.isInteger(numericPart)
@@ -44,13 +60,14 @@ export default function TrustSection() {
         }
       });
 
-      // Fade in logo strip
-      gsap.from(".logo-strip", {
+      // Eyebrow + scale line reveal
+      gsap.from([".trust-eyebrow", ".scale-line"], {
         opacity: 0,
-        y: 12,
+        y: 16,
         duration: 0.7,
+        stagger: 0.12,
         ease: "power2.out",
-        scrollTrigger: { trigger: ".logo-strip", start: "top 88%", once: true },
+        scrollTrigger: { trigger: ".trust-eyebrow", start: "top 88%", once: true },
       });
 
       // Fade in testimonial
@@ -70,12 +87,12 @@ export default function TrustSection() {
     <section id="trust" ref={sectionRef} style={{ backgroundColor: "#0D0D0D" }}>
       {/* ── Taupe client-logo band (full bleed) ── */}
       <div
-        className="px-6 md:px-10 lg:px-16 py-12 md:py-16"
+        className="trust-band px-6 md:px-10 lg:px-16 py-12 md:py-16"
         style={{ backgroundColor: "#C9C1B3" }}
       >
         <div className="max-w-6xl mx-auto">
           <p
-            className="text-sm tracking-[0.28em] uppercase mb-9 text-center font-medium"
+            className="trust-band-el text-sm tracking-[0.28em] uppercase mb-9 text-center font-medium"
             style={{ color: "#4A443B" }}
           >
             Trusted by
@@ -86,7 +103,7 @@ export default function TrustSection() {
             width={2903}
             height={236}
             sizes="(max-width: 768px) 100vw, 1100px"
-            className="logo-strip w-full h-auto"
+            className="logo-strip trust-band-el w-full h-auto"
             style={{ filter: "grayscale(1)", opacity: 0.88 }}
             priority
           />
@@ -98,7 +115,7 @@ export default function TrustSection() {
       <div className="max-w-7xl mx-auto">
         {/* Centered eyebrow */}
         <p
-          className="text-sm tracking-[0.28em] uppercase text-center mb-14"
+          className="trust-eyebrow text-sm tracking-[0.28em] uppercase text-center mb-14"
           style={{ color: "#8A8680" }}
         >
           Proven in market
@@ -107,7 +124,7 @@ export default function TrustSection() {
         {/* Metrics — centered */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
           {metrics.map((m) => (
-            <div key={m.label} className="text-center">
+            <div key={m.label} className="metric-item text-center">
               <p
                 className="metric-value font-display font-light mb-2"
                 data-target={m.value}
@@ -128,7 +145,7 @@ export default function TrustSection() {
 
         {/* Scale line — legally cautious, associative framing; centered, single line, elevated */}
         <p
-          className="font-display font-light leading-relaxed text-center whitespace-normal md:whitespace-nowrap mb-20"
+          className="scale-line font-display font-light leading-relaxed text-center whitespace-normal md:whitespace-nowrap mb-20"
           style={{ fontSize: "clamp(1.1rem, 1.9vw, 1.5rem)", color: "#B8B3AB" }}
         >
           Visual strategy supporting developments that represent

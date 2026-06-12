@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import BeforeAfter from "@/components/BeforeAfter";
 import { projects, getProjectBySlug } from "@/data/projects";
 
 export function generateStaticParams() {
@@ -143,6 +144,25 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   ))}
                 </div>
               </>
+            )}
+
+            {/* Render-to-Reality — interactive comparison */}
+            {project.coverImage && (
+              <div className="mb-20">
+                <p className="text-xs tracking-[0.2em] uppercase mb-4" style={{ color: "#C8A96E" }}>
+                  Concept → Final
+                </p>
+                <BeforeAfter
+                  before={project.coverImage}
+                  after={project.coverImage}
+                  beforeLabel="Concept"
+                  afterLabel="Final render"
+                  beforeFilter="grayscale(1) contrast(0.9) brightness(0.96)"
+                />
+                <p className="text-xs mt-3" style={{ color: "#4A4846" }}>
+                  Drag the handle to reveal the finished visual. Real render-to-photo pairs drop in per project.
+                </p>
+              </div>
             )}
 
             {/* Outcome */}
