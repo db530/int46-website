@@ -118,7 +118,7 @@ body {
 }
 .hero-img-breathe {
   transform-origin: center;
-  animation: hero-breathe 20s ease-in-out -4s infinite alternate;
+  animation: hero-breathe 14s ease-in-out -3s infinite alternate;
   will-change: transform;
 }
 @media (prefers-reduced-motion: reduce) {
