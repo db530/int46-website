@@ -1,7 +1,7 @@
 export const metrics = [
-  { value: "70%+", label: "Pre-sold in 3 months" },
-  { value: "97%",  label: "Occupancy in 6 months" },
-  { value: "404",  label: "Rooms delivered" },
+  { value: "70%+",  label: "Pre-sold in 3 months" },
+  { value: "97%",   label: "Occupancy in 6 months" },
+  { value: "€65M+", label: "Development value supported" },
 ];
 
 export const clientLogos = [

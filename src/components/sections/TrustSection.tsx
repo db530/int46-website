@@ -39,29 +39,31 @@ export default function TrustSection() {
       const metricEls = sectionRef.current?.querySelectorAll(".metric-value");
       metricEls?.forEach((el) => {
         const target = el.getAttribute("data-target") || "";
-        const numericPart = parseFloat(target.replace(/[^0-9.]/g, ""));
-        const suffix = target.replace(/[0-9.]/g, "");
+        // Split into prefix (e.g. "€") + number + suffix (e.g. "M+", "%")
+        const parts = target.match(/^([^0-9.]*)([0-9.]+)(.*)$/);
+        if (!parts) return;
+        const [, prefix, numStr, suffix] = parts;
+        const numericPart = parseFloat(numStr);
+        if (isNaN(numericPart)) return;
 
-        if (!isNaN(numericPart)) {
-          const obj = { val: 0 };
-          el.textContent = "0" + suffix;
-          gsap.to(obj, {
-            val: numericPart,
-            duration: 1.6,
-            ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 85%", once: true },
-            onUpdate: () => {
-              el.textContent =
-                (Number.isInteger(numericPart)
-                  ? Math.round(obj.val)
-                  : obj.val.toFixed(0)) + suffix;
-            },
-          });
-        }
+        const obj = { val: 0 };
+        el.textContent = prefix + "0" + suffix;
+        gsap.to(obj, {
+          val: numericPart,
+          duration: 1.6,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          onUpdate: () => {
+            el.textContent =
+              prefix +
+              (Number.isInteger(numericPart) ? Math.round(obj.val) : obj.val.toFixed(0)) +
+              suffix;
+          },
+        });
       });
 
-      // Eyebrow + scale line reveal
-      gsap.from([".trust-eyebrow", ".scale-line"], {
+      // Eyebrow reveal
+      gsap.from([".trust-eyebrow"], {
         opacity: 0,
         y: 16,
         duration: 0.7,
@@ -87,7 +89,7 @@ export default function TrustSection() {
     <section id="trust" ref={sectionRef} style={{ backgroundColor: "#0D0D0D" }}>
       {/* ── Taupe client-logo band (full bleed) ── */}
       <div
-        className="trust-band px-6 md:px-10 lg:px-16 py-12 md:py-16"
+        className="trust-band px-6 md:px-10 lg:px-16 py-10 md:py-12"
         style={{ backgroundColor: "#C9C1B3" }}
       >
         <div className="max-w-[96rem] mx-auto">
@@ -111,7 +113,7 @@ export default function TrustSection() {
       </div>
 
       {/* ── Dark content ── */}
-      <div className="py-24 md:py-32 px-6 md:px-10 lg:px-16">
+      <div className="py-20 md:py-24 px-6 md:px-10 lg:px-16">
       <div className="max-w-7xl mx-auto">
         {/* Centered eyebrow */}
         <p
@@ -122,7 +124,7 @@ export default function TrustSection() {
         </p>
 
         {/* Metrics — centered */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-16">
           {metrics.map((m) => (
             <div key={m.label} className="metric-item text-center">
               <p
@@ -143,17 +145,8 @@ export default function TrustSection() {
           ))}
         </div>
 
-        {/* Scale line — legally cautious, associative framing; centered, single line, elevated */}
-        <p
-          className="scale-line font-display font-light leading-relaxed text-center whitespace-normal md:whitespace-nowrap mb-20"
-          style={{ fontSize: "clamp(1.1rem, 1.9vw, 1.5rem)", color: "#B8B3AB" }}
-        >
-          Visual strategy supporting developments that represent
-          <span style={{ color: "#C8A96E" }}> tens of millions of euros</span> in asset value.
-        </p>
-
         {/* Divider */}
-        <div className="h-px mb-20" style={{ backgroundColor: "#2A2A2A" }} />
+        <div className="h-px mb-16" style={{ backgroundColor: "#2A2A2A" }} />
 
         {/* Testimonial + image */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
